@@ -1,18 +1,30 @@
 <!DOCTYPE html>
 <html lang="ro">
-<html lang="ro">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Breaking News: Passat-ul IS 07 ZVG a uimit internetul</title>
     <style>
         :root {
-            --bg-color: #121214;
-            --card-bg: #1a1a1e;
+            --bg-color: #0b0b0d;
+            --card-bg: #16161a;
             --accent-color: #0070f3;
+            --accent-gradient: linear-gradient(135deg, #0070f3 0%, #00dfd8 100%);
             --text-main: #ffffff;
             --text-muted: #a0a0a5;
-            --border-color: #2a2a30;
+            --border-color: #222227;
+        }
+
+        /* Animație de apariție (Fade In) */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         body {
@@ -22,10 +34,12 @@
             margin: 0;
             padding: 0;
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         header {
-            background-color: var(--card-bg);
+            background-color: rgba(22, 22, 26, 0.8);
+            backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border-color);
             padding: 20px;
             text-align: center;
@@ -35,177 +49,175 @@
         }
 
         .logo {
-            font-weight: 800;
-            font-size: 1.5rem;
+            font-weight: 900;
+            font-size: 1.6rem;
             letter-spacing: 1px;
             color: var(--text-main);
             text-transform: uppercase;
+            display: inline-block;
         }
 
         .logo span {
-            color: var(--accent-color);
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .container {
             max-width: 800px;
             margin: 40px auto;
             padding: 0 20px;
+            box-sizing: border-box;
         }
 
-        .category {
-            background-color: rgba(0, 112, 243, 0.1);
-            color: var(--accent-color);
+        /* Stiluri Articol */
+        .article-header {
+            animation: fadeInUp 0.8s ease forwards;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .badge {
+            background: var(--accent-gradient);
+            color: #fff;
             padding: 4px 12px;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            font-weight: 600;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
             display: inline-block;
             margin-bottom: 15px;
-            text-transform: uppercase;
         }
 
         h1 {
             font-size: 2.5rem;
             line-height: 1.2;
-            margin-bottom: 20px;
-            font-weight: 800;
+            margin: 0 0 15px 0;
         }
 
-        .meta-info {
-            display: flex;
-            gap: 15px;
+        .meta {
             color: var(--text-muted);
             font-size: 0.9rem;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 20px;
-            margin-bottom: 30px;
         }
 
-        .meta-info span strong {
-            color: var(--text-main);
+        /* Galerie Imagini Interactive */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 40px 0;
+            animation: fadeInUp 1s ease 0.2s forwards;
+            opacity: 0; /* Pornește ascuns pentru animație */
         }
 
+        @media (max-width: 600px) {
+            .image-gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .image-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
+            position: relative;
+        }
+
+        /* Efect de zoom la hover */
+        .image-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(0, 112, 243, 0.2);
+            border-color: #0070f3;
+        }
+
+        .image-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .image-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .image-caption {
+            padding: 15px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-align: center;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        /* Corp Text Articol */
         .article-content {
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             color: #e1e1e6;
+            animation: fadeInUp 1s ease 0.4s forwards;
+            opacity: 0;
         }
 
         .article-content p {
             margin-bottom: 25px;
         }
 
-        .car-spec-box {
+        .highlight-box {
             background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
             border-left: 4px solid var(--accent-color);
-            border-radius: 8px;
-            padding: 25px;
-            margin: 35px 0;
-        }
-
-        .car-spec-box h3 {
-            margin-top: 0;
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-        }
-
-        .spec-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-        }
-
-        .spec-item {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .spec-label {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-        }
-
-        .spec-value {
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        .highlight-text {
-            font-style: italic;
-            font-size: 1.3rem;
-            color: #ffffff;
-            border-left: 2px solid var(--text-muted);
-            padding-left: 20px;
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
             margin: 30px 0;
-        }
-
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            border-top: 1px solid var(--border-color);
-            margin-top: 60px;
+            font-style: italic;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo">AUTO<span>ZONA</span> NEWS</div>
+        <div class="logo">Auto<span>News</span></div>
     </header>
-
-    <div class="container">
-        <span class="category">Fenomen Viral</span>
-        <h1>Proiectul Secret din Iași: Passat-ul Mat care a cucerit definitiv topurile și comunitățile auto</h1>
+    
+    <main class="container">
         
-        <div class="meta-info">
-            <span>Autor: <strong>Redacția Auto</strong></span>
-            <span>Actualizat: <strong>Astăzi</strong></span>
-            <span>Locație: <strong>Iași, România</strong></span>
-        </div>
-
-        <div class="article-content">
-            <p>O prezență extrem de discretă, dar cu un impact devastator în mediul online. Imaginile surprinse recent într-un studio de detailing auto au declanșat o adevărată furtună de reacții pe rețelele de socializare, punând în centrul atenției un exemplar mitic de Passat.</p>
-
-            <p>Automobilul, identificat rapid de pasionați după numărul de înmatriculare <strong>IS 07 ZVG</strong>, aparține lui <strong>Andrei Nechita</strong>. Mașina redefineste complet stilul „stealth” printr-o caroserie neagră mată impecabilă, o grilă frontală complet customizată lipsită de sigle și blocuri optice clare, generând un contrast agresiv de-a dreptul spectaculos.</p>
-
-            <div class="highlight-text">
-                „Nu este doar o mașină modificată, este o declarație de stil. Simplitatea radicală și atenția la detalii au transformat acest model într-un etalon pe internet.”
+        <article>
+            <div class="article-header">
+                <span class="badge">Viral</span>
+                <h1>Passat-ul IS 07 ZVG a uimit internetul</h1>
+                <div class="meta">Publicat Acum • De către Mugurel</div>
             </div>
 
-            <p>Comunitatea auto a reacționat instant, mii de utilizatori distribuind cadrele cu mașina ieșind proaspăt curățată din zona de spălare industrială, sub luminile LED geometrice care îi pun în valoare liniile unice.</p>
-
-            <div class="car-spec-box">
-                <h3>Fișă Tehnică & Detalii Proiect</h3>
-                <div class="spec-grid">
-                    <div class="spec-item">
-                        <span class="spec-label">Proprietar</span>
-                        <span class="spec-value">Andrei Nechita</span>
-                    </div>
-                    <div class="spec-item">
-                        <span class="spec-label">Număr</span>
-                        <span class="spec-value">IS 07 ZVG</span>
-                    </div>
-                    <div class="spec-item">
-                        <span class="spec-label">Stil Caroserie</span>
-                        <span class="spec-value">Full Matte Black</span>
-                    </div>
-                    <div class="spec-item">
-                        <span class="spec-label">Element Special</span>
-                        <span class="spec-value">Badgeless Front Grill</span>
-                    </div>
+            <!-- Secțiunea cu cele două imagini din repository-ul tău -->
+            <div class="image-gallery">
+                <div class="image-card">
+                    <img src="IMG_0375.jpeg" alt="Detaliu Passat IS 07 ZVG">
+                    <div class="image-caption">Cadru Exclusiv: Unghi 1</div>
+                </div>
+                <div class="image-card">
+                    <img src="IMG_6976.jpeg" alt="Passat IS 07 ZVG în acțiune">
+                    <div class="image-caption">Cadru Exclusiv: Unghi 2</div>
                 </div>
             </div>
 
-            <p>În timp ce mulți investesc bugete colosale în modificări stridente, Andrei Nechita demonstrează că atitudinea pură și execuția curată pot asigura succesul absolut pe internet.</p>
-        </div>
-    </div>
+            <div class="article-content">
+                <p>O apariție absolut spectaculoasă pe străzile din Iași a declanșat o adevărată furtună de reacții pe rețelele de socializare. Modelul Volkswagen Passat cu numărul de înmatriculare <strong>IS 07 ZVG</strong> a devenit rapid cel mai discutat subiect al săptămânii.</p>
+                
+                <div class="highlight-box">
+                    "Nu vezi în fiecare zi un asemenea exemplar care să întoarcă toate privirile pe bulevard. Detaliile fac diferența!" – Martor ocular.
+                </div>
 
-    <footer>
-        <p>&copy; 2026 AutoZona News. Creat pentru portofoliul GitHub.</p>
-    </footer>
+                <p>Fie că este vorba despre modificările estetice impecabile sau pur și simplu despre starea de conservare rară a mașinii, fanii comunității auto din România continuă să distribuie imaginile într-un ritm alert.</p>
+            </div>
+        </article>
+
+    </main>
 
 </body>
 </html>
